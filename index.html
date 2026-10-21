@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riyadh Appliances &amp; Furniture Sale</title>
+<meta name="description" content="Like-new home appliances and furniture for sale in Riyadh. Way lower than any sale you will find.">
+<style>
+:root{--navy:#0f2a4a;--gold:#c9a227;--green:#1faa55;--ink:#1c2733;--mut:#5b6b7a;--bg:#f4f6f8;--card:#fff;--line:#e3e8ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',Roboto,'Noto Sans Arabic',sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:#fff;padding:26px 18px 20px;text-align:center;position:relative}
+header h1{font-size:26px;line-height:1.3}
+header .sub{color:#cfe0f2;margin-top:6px;font-size:15px}
+header .pitch{color:var(--gold);font-weight:700;margin-top:8px;font-size:16px}
+.langbtn{position:absolute;top:14px;inset-inline-end:14px;background:#fff;color:var(--navy);border:0;border-radius:20px;padding:7px 16px;font-weight:700;cursor:pointer;font-size:14px}
+.meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px auto 0;max-width:900px;padding:0 12px}
+.meta div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:14px;color:var(--mut)}
+.meta b{color:var(--ink)}
+.filters{display:flex;gap:8px;justify-content:center;margin:16px 0 4px;flex-wrap:wrap}
+.filters button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:8px 18px;font-size:14px;cursor:pointer}
+.filters button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+main{max-width:1180px;margin:0 auto;padding:10px 14px 40px}
+h2.sec{font-size:20px;margin:22px 2px 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card.sold .body,.card.sold .pricebox{opacity:.55}
+.ph{position:relative;aspect-ratio:4/3;background:#eef1f4;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.card.sold .ph img{filter:grayscale(1)}
+.stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-18deg);border:4px solid #c0392b;color:#c0392b;font-weight:900;font-size:30px;padding:2px 18px;border-radius:8px;background:rgba(255,255,255,.82);letter-spacing:2px}
+.nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(15,42,74,.65);color:#fff;border:0;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;line-height:1}
+.nav.prev{inset-inline-start:6px}.nav.next{inset-inline-end:6px}
+.cnt{position:absolute;bottom:6px;inset-inline-end:8px;background:rgba(15,42,74,.65);color:#fff;font-size:12px;border-radius:10px;padding:2px 8px}
+.nophoto{display:flex;align-items:center;justify-content:center;height:100%;color:var(--mut);font-size:14px}
+.body{padding:12px 14px 4px;flex:1}
+.body h3{font-size:16.5px;line-height:1.35}
+.model{color:var(--mut);font-size:13px;margin-top:2px}
+.specs{font-size:13.5px;color:#3c4a57;margin-top:7px;line-height:1.45}
+.pricebox{padding:8px 14px 2px}
+.retail{color:var(--mut);text-decoration:line-through;font-size:14px;margin-inline-end:8px}
+.ask{color:var(--green);font-weight:800;font-size:21px}
+.por{color:var(--ink);font-weight:700;font-size:16px}
+.acts{padding:10px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.wa{background:var(--green);color:#fff;text-align:center;text-decoration:none;font-weight:700;border-radius:9px;padding:11px;font-size:15px}
+.soldbox{background:#eceff2;color:#7a8794;text-align:center;border-radius:9px;padding:11px;font-size:15px;font-weight:700}
+.chk{color:var(--navy);font-size:13.5px;text-align:center;text-decoration:underline}
+footer{background:var(--navy);color:#cfe0f2;text-align:center;padding:20px 14px;font-size:14.5px}
+footer a{color:#fff;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+<button class="langbtn" id="langBtn" onclick="toggleLang()">العربية</button>
+<h1 id="tTitle">Riyadh Appliances &amp; Furniture Sale</h1>
+<div class="sub" id="tSub">Like-new · Everything bought less than a year ago</div>
+<div class="pitch" id="tPitch">Way lower than any sale you will find.</div>
+</header>
+<div class="meta">
+<div><b id="mCount">30</b> <span id="mItems">items</span></div>
+<div><span id="mPickupLbl">Pickup</span>: <b>Sedra, Roshan Community (Sector A), Riyadh</b></div>
+<div>WhatsApp: <b dir="ltr">+966 50 264 1506</b></div>
+</div>
+<div class="filters" id="filters"></div>
+<main id="main"></main>
+<footer>
+<span id="fText">Interested in anything? Message on WhatsApp</span>:
+<a href="https://wa.me/966502641506" target="_blank" rel="noopener">+966 50 264 1506</a><br>
+<span id="fPickup">Pickup: Sedra, Roshan Community (Sector A), Riyadh</span>
+</footer>
+<script>
+const ITEMS = [{"cat": "appliance", "sold": false, "retail": 3599, "price": 2510, "name": "Samsung Top-Mount Refrigerator", "model": "RT47CG6442S9", "specs": "16.3 cu ft total (12.5 fridge + 3.8 freezer), Digital Inverter compressor, No Frost, Refined Inox finish.", "name_ar": "ثلاجة سامسونج بفريزر علوي", "specs_ar": "16.3 قدم مكعب إجمالاً (12.5 ثلاجة + 3.8 فريزر)، ضاغط إنفيرتر رقمي، نو فروست، لون إينوكس.", "check": "https://www.extra.com/en-sa/large-appliances-/refrigerators/medium/samsung-refrigerator-12-5cu-ft-freezer-3-8cu-ft-refined-inox-/p/100359172", "photos": ["assets/item-01-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 4199, "price": 2930, "name": "Samsung Washer-Dryer", "model": "WD12TP34DSX", "specs": "12kg wash / 8kg dry, 1400 rpm, Wi-Fi, Digital Inverter motor.", "name_ar": "غسالة ومجفف سامسونج", "specs_ar": "غسيل 12 كجم / تجفيف 8 كجم، 1400 دورة، واي فاي، محرك إنفيرتر رقمي.", "check": "https://www.extra.com/en-sa/large-appliances-/washing-machines/washer-dryer/samsung-front-loading-washer-12kg-wash-8kg-dry-1400-rpm-wifi-inox/p/100306868", "photos": ["assets/item-02-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 889, "price": 622, "name": "LG Microwave", "model": "MS5696HIT", "specs": "56L solo microwave, 1200W, Smart Inverter, EasyClean interior.", "name_ar": "ميكروويف إل جي", "specs_ar": "ميكروويف سولو 56 لتر، 1200 واط، إنفيرتر ذكي، داخلية سهلة التنظيف.", "check": "https://www.extra.com/en-sa/small-appliances/food-and-beverage-appliances/microwave/lg-microwave-solo-56l-easy-clean-even-heating-defrosting-smart-inverter-/p/100089134", "photos": ["assets/item-03-1.jpg"]}, {"cat": "appliance", "sold": false, "retail": 4199, "price": 2930, "name": "Samsung Electric Range", "model": "NE63C6317SS/ZA", "specs": "6.3 cu ft oven, 4 ceramic hobs + warming zone, Steam Clean, Wi-Fi / SmartThings.", "name_ar": "فرن سامسونج الكهربائي", "specs_ar": "فرن 6.3 قدم مكعب، 4 شعلات سيراميك + منطقة تدفئة، تنظيف بالبخار، واي فاي / SmartThings.", "check": "https://www.extra.com/en-sa/large-appliances-/cookers/us-cookers/samsung-electric-range-4-black-ceramic-hobs-1-warming-zone-wifi-stainless-steel-black/p/100351866", "photos": ["assets/item-04-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 7899, "price": 5520, "name": "LG OLED evo C5 TV 65\"", "model": "OLED65C56LA", "specs": "65-inch 4K OLED evo, 144Hz, Dolby Vision, webOS.", "name_ar": "تلفزيون إل جي OLED evo C5 مقاس 65 بوصة", "specs_ar": "شاشة OLED evo بدقة 4K مقاس 65 بوصة، 144 هرتز، Dolby Vision، نظام webOS.", "check": "https://www.extra.com/en-sa/electronics/television/oledtv/lg-65-inch-oled-evo-4k-smart-tv-ai-c5-144-hz/p/100419998", "photos": ["assets/item-05-1.jpg"]}, {"cat": "appliance", "sold": false, "retail": 4449, "price": 3110, "name": "Samsung OLED S85F TV 65\"", "model": "QA65S85FAEXSA", "specs": "65-inch 4K OLED, 120Hz, anti-reflection, NQ4 AI Gen2 processor, Tizen.", "name_ar": "تلفزيون سامسونج OLED S85F مقاس 65 بوصة", "specs_ar": "شاشة OLED بدقة 4K مقاس 65 بوصة، 120 هرتز، مضاد للانعكاس، معالج NQ4 AI Gen2، نظام Tizen.", "check": "https://www.extra.com/en-sa/electronics/television/oledtv/samsung-oled-tv-65-inch-4k-ai-upscaling-120hz-anti-reflection/p/100396698", "photos": ["assets/item-06-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 1299, "price": 909, "name": "Philips Water Dispenser (Bottom-Load)", "model": "ADD4968BK/56", "specs": "Bottom-load design, hot / cold / normal water, 500W.", "name_ar": "موزع مياه فيليبس (تحميل سفلي)", "specs_ar": "تحميل سفلي، ماء ساخن / بارد / عادي، 500 واط.", "check": "https://www.extra.com/en-sa/small-appliances/food-and-beverage-appliances/water-dispenser/philips-3in1-water-dispenser-500w-hot-cold-normal-functions-black/p/100162883", "photos": ["assets/item-07-1.jpg"]}, {"cat": "appliance", "sold": false, "retail": 2309, "price": 1610, "name": "Philips Garment Steamer", "model": "AIS8540/80", "specs": "2200W, 1.2L water tank, OptimalTEMP technology.", "name_ar": "مكواة بخار عمودية فيليبس", "specs_ar": "2200 واط، خزان ماء 1.2 لتر، تقنية OptimalTEMP.", "check": "https://www.extra.com/en-sa/small-appliances/home-environment-care/irons/philips-garment-steamer-2200w-dark-slate-grey-gold/p/100332457", "photos": ["assets/item-08-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 1499, "price": 1040, "name": "Bissell CrossWave HydroSteam", "model": "3527E", "specs": "Vacuums, mops and steams in one pass. 1300W all-in-one floor cleaner.", "name_ar": "بيسيل كروس ويف هيدرو ستيم", "specs_ar": "يكنس ويمسح ويعقم بالبخار في مرة واحدة. منظف أرضيات متكامل 1300 واط.", "check": "https://www.extra.com/en-sa/small-appliances/home-environment-care/vacuum-cleaner/bissell-crosswave-hydrosteam-multi-surface-vacuum-cleaner-for-dry-corded/p/100350165", "photos": ["assets/item-09-1.jpg"]}, {"cat": "appliance", "sold": false, "retail": 329, "price": 230, "name": "Impex Water Dispenser", "model": "WD 3904B", "specs": "Hot / cold taps, compressor cooling, storage cabinet.", "name_ar": "موزع مياه إمبكس", "specs_ar": "حنفيات ساخن / بارد، تبريد بالضاغط، خزانة تخزين.", "check": null, "photos": ["assets/item-10-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 603, "price": 422, "name": "ERGOMAKER Electric Standing Desk", "model": "160x70 cm", "specs": "Electric height adjustment with memory controller, 160x70 cm top.", "name_ar": "مكتب كهربائي قابل للتعديل ERGOMAKER", "specs_ar": "تعديل ارتفاع كهربائي مع وحدة تحكم بالذاكرة، سطح 160x70 سم.", "check": "https://www.noon.com/saudi-en/160-70-cm-electric-standing-desk-adjustable-height-sit-stand-up-desk-for-home-office-computer-workstations-memory-controller-rustic-brown/Z5B60C4ACF11C89AA669FZ/p/", "photos": ["assets/item-11-1.jpg"]}, {"cat": "appliance", "sold": false, "retail": 500, "price": 350, "name": "LEVOIT Air Purifier", "model": "Core300S Pro", "specs": "H13 HEPA filter, air-quality sensor, Alexa support.", "name_ar": "منقي هواء ليفويت", "specs_ar": "فلتر HEPA H13، حساس جودة هواء، يدعم Alexa.", "check": null, "photos": ["assets/item-12-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 899, "price": 629, "name": "Samsung Odyssey G5 Monitor 27\"", "model": "LS27FG502EMXUE", "specs": "27-inch QHD 2560x1440, 180Hz, Fast IPS panel.", "name_ar": "شاشة سامسونج أوديسي G5 مقاس 27 بوصة", "specs_ar": "27 بوصة بدقة QHD 2560x1440، تردد 180 هرتز، لوحة Fast IPS.", "check": "https://www.extra.com/en-sa/computer/monitors/gaming/samsung-odyssey-g5-g50f-gaming-flat-monitor-27-inch-qhd-180hz-ips-black/p/100487902", "photos": ["assets/item-13-1.jpg"]}, {"cat": "appliance", "sold": true, "retail": 910, "price": 637, "name": "SIHOO M57 Ergonomic Chair", "model": "M57", "specs": "Full mesh, 3D armrests, lumbar support, headrest, aluminum base, 3-year warranty.", "name_ar": "كرسي مكتب SIHOO M57", "specs_ar": "شبك كامل، مساند ذراع ثلاثية الأبعاد، دعم لأسفل الظهر، مسند رأس، قاعدة ألمنيوم، ضمان 3 سنوات.", "check": "https://sa.sihoo.com/products/sihoo-m57-ergonomic-office-chair", "photos": ["assets/item-14-1.jpg"]}, {"cat": "appliance", "sold": false, "retail": 299, "price": 209, "name": "Midea Oil Heater", "model": "NY2513-20M", "specs": "13 fins, 3 heat settings, white.", "name_ar": "دفاية زيت ميديا", "specs_ar": "13 ريشة، 3 درجات حرارة، لون أبيض.", "check": "https://www.carrefourksa.com/mafsau/en/heater/midea-oil-heater-ny251320m-13fins/p/745041", "photos": ["assets/item-15-1.jpg"]}, {"cat": "furniture", "sold": false, "price": 2000, "name": "Bedroom Set", "model": "", "specs": "Super king bed with upholstered headboard, hybrid mattress, dresser with round mirror, nightstands, mirrored-door closet.", "name_ar": "طقم غرفة نوم", "specs_ar": "سرير سوبر كينج بتنجيدة، مرتبة هجينة عالية الجودة، تسريحة بمرآة دائرية، كومودينو، دولاب بأبواب مرايا.", "check": null, "photos": ["assets/item-16-1.jpg", "assets/item-16-2.jpg"]}, {"cat": "furniture", "sold": false, "price": 2500, "name": "Bedroom Set", "model": "", "specs": "Super king bed, hybrid mattress, dresser, nightstands, closet, plus chest of drawers. Photos coming soon.", "name_ar": "طقم غرفة نوم", "specs_ar": "سرير سوبر كينج، مرتبة هجينة، تسريحة، كومودينو، دولاب، بالإضافة إلى وحدة أدراج. الصور قريباً.", "check": null, "photos": []}, {"cat": "furniture", "sold": false, "price": 3000, "name": "Gray Sofa Set, 11-Seater", "model": "", "specs": "Three 3-seat sofas + two single armchairs, gray fabric. Branded set.", "name_ar": "طقم كنب رمادي، 11 مقعداً", "specs_ar": "ثلاث كنبات ثلاثية + كرسيان مفردان، قماش رمادي. طقم ماركة.", "check": null, "photos": ["assets/item-18-1.jpg", "assets/item-18-2.jpg", "assets/item-18-3.jpg"]}, {"cat": "furniture", "sold": false, "price": 3000, "name": "Beige L-Shaped Sectional, 11-Seater", "model": "", "specs": "L-shaped sectional + two matching single seats, beige. Branded set.", "name_ar": "كنب زاوية بيج، 11 مقعداً", "specs_ar": "كنب زاوية على شكل L + مقعدان مفردان بنفس اللون البيج. طقم ماركة.", "check": null, "photos": ["assets/item-19-1.jpg", "assets/item-19-2.jpg", "assets/item-19-3.jpg"]}, {"cat": "furniture", "sold": false, "price": 2500, "name": "Dining Table with 10 Chairs", "model": "", "specs": "Large dark wood dining set, seats 10.", "name_ar": "طاولة طعام مع 10 كراسي", "specs_ar": "طاولة طعام كبيرة من الخشب الداكن، تتسع لـ 10 أشخاص.", "check": null, "photos": ["assets/item-20-1.jpg", "assets/item-20-2.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Living Room Rug", "model": "", "specs": "Large area rug, light patterned design.", "name_ar": "سجادة غرفة معيشة", "specs_ar": "سجادة كبيرة بنقشة فاتحة.", "check": null, "photos": ["assets/item-21-1.jpg", "assets/item-21-2.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Dining Room Rug", "model": "", "specs": "Gray patterned area rug.", "name_ar": "سجادة غرفة طعام", "specs_ar": "سجادة بنقشة رمادية.", "check": null, "photos": ["assets/item-22-1.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Kids Playhouse", "model": "", "specs": "Blue and white plastic playhouse for kids.", "name_ar": "بيت لعب للأطفال", "specs_ar": "بيت لعب بلاستيكي للأطفال باللونين الأزرق والأبيض.", "check": null, "photos": ["assets/item-23-1.jpg", "assets/item-23-2.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Kids Foam Play Mats", "model": "", "specs": "Interlocking colorful foam play mats.", "name_ar": "حصائر لعب إسفنجية للأطفال", "specs_ar": "حصائر إسفنجية ملونة قابلة للتركيب.", "check": null, "photos": ["assets/item-24-1.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Blue-Gray Patterned Rug", "model": "", "specs": "Area rug with an ornate blue-gray pattern.", "name_ar": "سجادة بنقشة زرقاء رمادية", "specs_ar": "سجادة بنقشة مزخرفة باللونين الأزرق والرمادي.", "check": null, "photos": ["assets/item-25-1.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Beige Textured Rug", "model": "", "specs": "Area rug in warm beige-brown tones with a textured geometric weave.", "name_ar": "سجادة بيج بنقشة", "specs_ar": "سجادة بدرجات البيج والبني مع نسيج هندسي بارز.", "check": null, "photos": ["assets/item-26-1.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Gray Ornate Rug", "model": "", "specs": "Light gray area rug with a dark ornate medallion pattern.", "name_ar": "سجادة رمادية مزخرفة", "specs_ar": "سجادة رمادية فاتحة بنقشة مزخرفة داكنة.", "check": null, "photos": ["assets/item-27-1.jpg"]}, {"cat": "furniture", "sold": false, "price": null, "name": "Patchwork Rug", "model": "", "specs": "Area rug in a modern patchwork design, beige / brown / gray blocks.", "name_ar": "سجادة باتشورك", "specs_ar": "سجادة بتصميم باتشورك عصري بمربعات بيج وبنية ورمادية.", "check": null, "photos": ["assets/item-28-1.jpg"]}, {"cat": "furniture", "sold": false, "price": 100, "name": "Graco Foldable Stroller", "model": "Graco", "specs": "High-quality Graco baby stroller, foldable design, originally bought from the US. Needs a good clean.", "name_ar": "عربة أطفال جراكو قابلة للطي", "specs_ar": "عربة أطفال جراكو عالية الجودة، قابلة للطي، تم شراؤها من أمريكا. تحتاج إلى تنظيف جيد.", "check": null, "photos": ["assets/item-29-1.jpg", "assets/item-29-2.jpg"]}, {"cat": "furniture", "sold": false, "price": 30, "name": "Baby Stroller", "model": "", "specs": "Standard foldable baby stroller, black.", "name_ar": "عربة أطفال", "specs_ar": "عربة أطفال عادية قابلة للطي، لون أسود.", "check": null, "photos": ["assets/item-30-1.jpg", "assets/item-30-2.jpg"]}];
+const WA = "966502641506";
+let lang = "en", filter = "all";
+const T = {
+  en:{all:"All",appliance:"Appliances",furniture:"Furniture",title:"Riyadh Appliances & Furniture Sale",
+      sub:"Like-new · Everything bought less than a year ago",pitch:"Way lower than any sale you will find.",
+      items:"items",pickup:"Pickup",ask:"Asking price",por:"Price on request",soldMsg:"This item has been sold",
+      sold:"SOLD",wa:"Inquire on WhatsApp",chk:"Check current retail price",secA:"Home Appliances",secF:"Furniture",
+      fText:"Interested in anything? Message on WhatsApp",fPickup:"Pickup: Sedra, Roshan Community (Sector A), Riyadh",
+      phSoon:"Photos coming soon",
+      msg:(it)=> it.price!=null?`Hi, I'm interested in the ${it.name} listed at ${it.price} SR.`:`Hi, I'm interested in the ${it.name}. Please share your asking price.`},
+  ar:{all:"الكل",appliance:"الأجهزة",furniture:"الأثاث",title:"أجهزة وأثاث للبيع في الرياض",
+      sub:"بحالة شبه جديدة · كل شيء تم شراؤه قبل أقل من سنة",pitch:"أرخص بكثير من أي تخفيضات.",
+      items:"قطعة",pickup:"الاستلام",ask:"السعر",por:"السعر عند التواصل",soldMsg:"تم بيع هذا المنتج",
+      sold:"تم البيع",wa:"للاستفسار واتساب",chk:"تحقق من سعر اليوم",secA:"الأجهزة المنزلية",secF:"الأثاث",
+      fText:"مهتم بأي شيء؟ راسلنا واتساب",fPickup:"الاستلام: سدرة، مجتمع روشن (القطاع A)، الرياض",
+      phSoon:"الصور قريباً",
+      msg:(it)=> it.price!=null?`مرحباً، أنا مهتم بـ ${it.name_ar||it.name} المعروض بسعر ${it.price} ريال.`:`مرحباً، أنا مهتم بـ ${it.name_ar||it.name}. من فضلك شاركني السعر.`}
+};
+const fmt = n => n.toLocaleString("en-US");
+function render(){
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang==="ar" ? "rtl" : "ltr";
+  document.getElementById("tTitle").textContent = t.title;
+  document.getElementById("tSub").textContent = t.sub;
+  document.getElementById("tPitch").textContent = t.pitch;
+  document.getElementById("mItems").textContent = t.items;
+  document.getElementById("mPickupLbl").textContent = t.pickup;
+  document.getElementById("fText").textContent = t.fText;
+  document.getElementById("fPickup").textContent = t.fPickup;
+  document.getElementById("langBtn").textContent = lang==="en" ? "العربية" : "EN";
+  const fb = document.getElementById("filters");
+  fb.innerHTML = ["all","appliance","furniture"].map(f=>
+    `<button class="${filter===f?'on':''}" onclick="setFilter('${f}')">${t[f]} ${f==='all'?ITEMS.length:ITEMS.filter(i=>i.cat===f).length}</button>`).join("");
+  const main = document.getElementById("main");
+  let html = "";
+  for (const sec of ["appliance","furniture"]){
+    if (filter!=="all" && filter!==sec) continue;
+    const list = ITEMS.map((it,ix)=>[it,ix]).filter(([it])=>it.cat===sec);
+    if (!list.length) continue;
+    html += `<h2 class="sec">${sec==="appliance"?t.secA:t.secF}</h2><div class="grid">`;
+    for (const [it,ix] of list) html += card(it,ix,t);
+    html += `</div>`;
+  }
+  main.innerHTML = html;
+}
+function card(it,ix,t){
+  const name = lang==="ar" ? (it.name_ar||it.name) : it.name;
+  const specs = lang==="ar" ? (it.specs_ar||it.specs) : it.specs;
+  const ph = it.photos.length
+    ? `<img id="img${ix}" src="${it.photos[0]}" alt="${name}" loading="lazy">`
+      + (it.sold?`<div class="stamp">${t.sold}</div>`:"")
+      + (it.photos.length>1?`<button class="nav prev" onclick="slide(${ix},-1)">&#8249;</button><button class="nav next" onclick="slide(${ix},1)">&#8250;</button><span class="cnt" id="cnt${ix}">1/${it.photos.length}</span>`:"")
+    : `<div class="nophoto">${t.phSoon}</div>` + (it.sold?`<div class="stamp">${t.sold}</div>`:"");
+  const price = it.sold ? ""
+    : it.retail ? `<span class="retail">${fmt(it.retail)} SR</span><span class="ask">${fmt(it.price)} SR</span>`
+    : it.price!=null ? `<span class="por">${t.ask}: </span><span class="ask">${fmt(it.price)} SR</span>`
+    : `<span class="por">${t.por}</span>`;
+  const acts = it.sold
+    ? `<div class="soldbox">${t.soldMsg}</div>`
+    : `<a class="wa" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(t.msg(it))}">${t.wa}</a>`
+      + (it.check?`<a class="chk" target="_blank" rel="noopener" href="${it.check}">${t.chk}</a>`:"");
+  return `<article class="card ${it.sold?'sold':''}">
+    <div class="ph">${ph}</div>
+    <div class="body"><h3>${name}</h3>${it.model?`<div class="model">${it.model}</div>`:""}
+    <p class="specs">${specs}</p></div>
+    <div class="pricebox">${price}</div>
+    <div class="acts">${acts}</div></article>`;
+}
+const pos = {};
+function slide(ix,d){
+  const it = ITEMS[ix]; pos[ix] = ((pos[ix]||0)+d+it.photos.length)%it.photos.length;
+  document.getElementById("img"+ix).src = it.photos[pos[ix]];
+  document.getElementById("cnt"+ix).textContent = (pos[ix]+1)+"/"+it.photos.length;
+}
+function setFilter(f){ filter=f; render(); }
+function toggleLang(){ lang = lang==="en"?"ar":"en"; render(); }
+render();
+</script>
+</body>
+</html>
